@@ -32,12 +32,6 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-
-        Page1Form {
-        }
-
-        Page2Form {
-        }
     }
     Database {
         id: database
@@ -53,7 +47,7 @@ ApplicationWindow {
                 var str = ""
                 str = fileDialog.fileUrls.toString()
                 // remove prefixed "file://"
-                str = str.replace(/^(file:\/{2})/,"");
+                str = str.replace(/^(file:\/{3})/,"");
                 // unescape html codes like '%23' for '#'
                 str = decodeURIComponent(str);
                 // str += Qt.resolvedUrl(str) // what does this do?
@@ -91,63 +85,63 @@ ApplicationWindow {
             TabButton {
                 text: qsTr("Project")
                 onClicked: {
-                    stackView.push("HomeForm.ui.qml")
+                    stackView.push("qml/HomeForm.ui.qml")
                 }
             }
             TabButton {
                 text: qsTr("Files")
                 onClicked: {
                     files.files();
-                    stackView.push("Files.qml")
+                    stackView.push("qml/Files.qml")
                 }
             }
             TabButton {
                 text: qsTr("Codes")
                 onClicked: {
                     codes.codes();
-                    stackView.push("Codes.qml")
+                    stackView.push("qml/Codes.qml")
                 }
             }
             TabButton {
                 text: qsTr("Code Categories")
                 onClicked: {
                     codecats.codecats();
-                    stackView.push("CodesCat.qml")
+                    stackView.push("qml/CodesCat.qml")
                 }
             }
             TabButton {
                 text: qsTr("Cases")
                 onClicked: {
                     cases.cases();
-                    stackView.push("Cases.qml")
+                    stackView.push("qml/Cases.qml")
                 }
             }
             TabButton {
                 text: qsTr("Attributes")
                 onClicked: {
                     attr.attr();
-                    stackView.push("Attributes.qml")
+                    stackView.push("qml/Attributes.qml")
                 }
             }
             TabButton {
                 text: qsTr("File Categories")
                 onClicked: {
                     filescat.filescat();
-                    stackView.push("FilesCat.qml")
+                    stackView.push("qml/FilesCat.qml")
                 }
             }
             TabButton {
                 text: qsTr("Journals")
                 onClicked: {
                     journals.journals();
-                    stackView.push("Journals.qml")
+                    stackView.push("qml/Journals.qml")
                 }
             }
         }
 
     StackView {
         id: stackView
-        initialItem: "HomeForm.ui.qml"
+        initialItem: "qml/HomeForm.ui.qml"
         anchors.fill: parent
     }
 }

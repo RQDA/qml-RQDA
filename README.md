@@ -9,3 +9,8 @@ I do not think that `RGtk2` is really required as a GUI for RQDA. Instead I assu
 Currently this is a read only GUI capable of opening projects and displaying what the main RQDA QUI was showing.
 
 A word of warning: to me this is a hobby project learning about Qt and QML and I have no intention to use RQDA or even this project for anything else but learning about GUI Coding.
+
+## Screenshot
+![development screenshot][screenshot]
+
+[screenshot]: doc/pic/Screenshot-dev.png "development screenshot"
