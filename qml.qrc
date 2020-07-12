@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HomeForm.ui.qml</file>
+        <file>Page1Form.ui.qml</file>
+        <file>Page2Form.ui.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Files.qml</file>
+        <file>Codes.qml</file>
+        <file>ViewFile.qml</file>
+        <file>CodesCat.qml</file>
+        <file>Cases.qml</file>
+        <file>Attributes.qml</file>
+        <file>FilesCat.qml</file>
+        <file>Journals.qml</file>
+    </qresource>
+</RCC>
