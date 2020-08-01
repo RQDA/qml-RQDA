@@ -47,7 +47,11 @@ ApplicationWindow {
                 var str = ""
                 str = fileDialog.fileUrls.toString()
                 // remove prefixed "file://"
-                str = str.replace(/^(file:\/{3})/,"");
+                if (Qt.platform.os === "windows")
+                    str = str.replace(/^(file:\/{3})/,"");
+                else
+                    str = str.replace(/^(file:\/{2})/,"");
+
                 // unescape html codes like '%23' for '#'
                 str = decodeURIComponent(str);
                 // str += Qt.resolvedUrl(str) // what does this do?
