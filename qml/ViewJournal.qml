@@ -4,23 +4,36 @@ import QtQuick.Window 2.2
 import QtQuick.Layouts 1.15
 
 
-Window {
+ApplicationWindow {
     id: frame
-    title: qsTr(filename)
+    title: qsTr("Journal")
     visible: true
     width: 640
     height: 480
 
     Shortcut {
         sequence: StandardKey.Close
-        context: Qt.ApplicationShortcut
+        context: Qt.WindowShortcut
         onActivated: close()
+    }
+
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("File")
+            MenuItem {
+                text: qsTr("&Save")
+            }
+        }
+        Menu {
+            title: qsTr("Close")
+        }
     }
 
     Flickable{
         id: flick
+        anchors.fill: parent
 
-        width: frame.width; height: parent.height;
+        width: frame.width; height: frame.height - parent.height;
         contentWidth: contentarea.paintedWidth
         contentHeight: contentarea.paintedHeight
         clip: true
@@ -59,14 +72,13 @@ Window {
             }
         }
 
-        anchors.fill: parent
         TextEdit {
 
             id: contentarea
             width: flick.width
             text: viewjournal.viewjournals(journalid)
-            textFormat: TextEdit.RichText
-            readOnly: true
+            textFormat: TextEdit.MarkdownText
+            readOnly: false
             selectByMouse: true
             focus: true
             wrapMode: TextEdit.Wrap

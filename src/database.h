@@ -32,12 +32,18 @@ public:
     }
     void connectToDataBase(const QString databasename);
 
+
 private:
     QSqlDatabase    db;
 
 private:
     bool openDataBase(const QString databasename);
     void closeDataBase();
+
+public slots:
+    bool execquery(const QString sqlquery);
+    bool updateMemo(const QString sqlquery, const int memotyp, const int memoid);
+
 };
 
 #endif // DATABASE_H

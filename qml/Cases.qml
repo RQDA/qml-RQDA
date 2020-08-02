@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.15
+import DB 1.0
 
 Page {
     id: cases_page
@@ -14,6 +15,9 @@ Page {
                 Row{
                     Button {
                         text: "Add"
+                        onClicked: {
+                            database.execquery("INSERT INTO cases  ('name','memo','owner','date','dateM','id','status') VALUES ('Test','Testmemo','test',0,NULL,(SELECT MAX( id ) FROM cases) +1,1)")
+                        }
                     }
                     Button {
                         text: "Delete"

@@ -4,23 +4,49 @@ import QtQuick.Window 2.2
 import QtQuick.Layouts 1.15
 
 
-Window {
+ApplicationWindow  {
     id: frame
     title: qsTr("Memo")
     visible: true
-    width: 640
-    height: 480
 
     Shortcut {
         sequence: StandardKey.Close
-        context: Qt.ApplicationShortcut
+        context: Qt.WindowShortcut
         onActivated: close()
+    }
+    Shortcut {
+        sequence: StandardKey.Save
+        context: Qt.WindowShortcut
+        onActivated: {
+            //getFormattedText (0, contentarea.length) )
+            database.updateMemo(contentarea.text, memotyp, memoid)
+            console.log("text is: ", contentarea.text )
+        }
+    }
+
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("File")
+            MenuItem {
+                text: qsTr("&Save")
+                onClicked: {
+                    database.updateMemo(contentarea.text, memotyp, memoid)
+                    console.log("memotyp: ", memotyp )
+                    console.log("memoid: ", memoid )
+                    console.log("text is: ", contentarea.text )
+                }
+            }
+        }
+        Menu {
+            title: qsTr("Close")
+        }
     }
 
     Flickable{
         id: flick
+        anchors.fill: parent
 
-        width: frame.width; height: parent.height;
+        width: frame.width; height: frame.height - parent.height;
         contentWidth: contentarea.paintedWidth
         contentHeight: contentarea.paintedHeight
         clip: true
@@ -59,13 +85,12 @@ Window {
             }
         }
 
-        anchors.fill: parent
         TextEdit {
 
             id: contentarea
             width: flick.width
             text: viewmemo.viewmemos(memoid, memotyp)
-            textFormat: TextEdit.RichText
+            textFormat: TextEdit.MarkdownText
             selectByMouse: true
             focus: true
             wrapMode: TextEdit.Wrap
@@ -77,4 +102,5 @@ Window {
         }
 
     }
+
 }
