@@ -13,5 +13,8 @@
         <file>qml/Attributes.qml</file>
         <file>qml/FilesCat.qml</file>
         <file>qml/Journals.qml</file>
+        <file>qml/ViewMemo.qml</file>
+        <file>qml/MessageDialog.qml</file>
+        <file>qml/ViewJournal.qml</file>
     </qresource>
 </RCC>

@@ -64,7 +64,7 @@ Window {
 
             id: contentarea
             width: flick.width
-            text: viewfile.viewfiles(fileid)
+            text: viewjournal.viewjournals(journalid)
             textFormat: TextEdit.RichText
             readOnly: true
             selectByMouse: true

@@ -20,7 +20,9 @@ ApplicationWindow {
     property int caseid: 0;
     property int codecatsid: 0;
     property int filescatid: 0;
-
+    property int memotyp: 0;
+    property int memoid: 0;
+    property int journalid: 0;
 
     Shortcut {
         sequence: StandardKey.Quit

@@ -21,6 +21,10 @@ Page {
             }
             Button {
                 text: "Memo"
+                onClicked: {
+                    memotyp = 1;
+                    stackView.push("ViewMemo.qml")
+                }
             }
             Button {
                 text: "Rename"
@@ -42,15 +46,17 @@ Page {
                         width: files_page.width
                         text: model.name
                         highlighted: ListView.isCurrentItem
-                        onClicked: listView.currentIndex = index
-                        onDoubleClicked: {
+                        onClicked: {
+                            listView.currentIndex = index
                             // gibt den richtigen Index zurück
                             console.log(filename);
                             filename =  model.name;
                             fileid = model.id;
-                            console.log("double row is ", index);
+                            memoid = model.id;
                             console.log("filename is ", filename);
                             // viewfile.viewfiles(fileid)
+                        }
+                        onDoubleClicked: {
                             stackView.push("ViewFile.qml")
                         }
                     }

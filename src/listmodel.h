@@ -53,6 +53,8 @@ public slots:
     void journals();
     void viewfilesCodes();
     QString viewfiles(const int fileid);
+    QString viewmemos(const int fileid, const int memotyp);
+    QString viewjournals(const int fileid);
 };
 
 #endif // LISTMODEL_H

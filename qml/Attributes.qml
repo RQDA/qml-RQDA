@@ -21,6 +21,10 @@ Page {
             }
             Button {
                 text: "Memo"
+                onClicked: {
+                    memotyp = 5;
+                    stackView.push("ViewMemo.qml")
+                }
             }
             Button {
                 text: "Class"
@@ -39,7 +43,12 @@ Page {
                         width: attr_page.width
                         text: model.name
                         highlighted: ListView.isCurrentItem
-                        onClicked: listView.currentIndex = index
+                        onClicked: {
+                            listView.currentIndex = index
+                            codecatsid = model.id;
+                            memoid = model.id;
+                            console.log("memoid is ", memoid);
+                        }
                     }
                 }
             }

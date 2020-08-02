@@ -79,18 +79,18 @@ void ListModel::casesID(const int caseid)
 
 void ListModel::attr()
 {
-    this->setQuery("select name from attributes where status=1 order by lower(name)");
+    this->setQuery("select ROW_NUMBER() OVER(ORDER BY lower(name)) AS id, name  from attributes where status=1 order by lower(name)");
 }
 
 void ListModel::filescat()
 {
-    this->setQuery("select name, catid from filecat where status=1");
+    this->setQuery("select catid as id, name from filecat where status=1");
 }
 
 void ListModel::filescatID(const int fielscatid)
 {
     QSqlQuery query;
-    query.prepare("select a.name, a.id       \
+    query.prepare("select a.id, a.name       \
                   from      source      as a \
                   left join treefile    as b \
                   on a.id = b.fid            \
@@ -102,7 +102,11 @@ void ListModel::filescatID(const int fielscatid)
 
 void ListModel::journals()
 {
-    this->setQuery("select name from journal where status=1");
+    this->setQuery("select a.id, a.name \
+                   from (select ROW_NUMBER() OVER(ORDER BY date) AS id, \
+                                date, \
+                                name  \
+                         from journal  where status=1 order by date) a");
 }
 
 
@@ -123,31 +127,59 @@ QString ListModel::viewfiles(const int fileid)
     QString res = query.record().value("file").toString();
     // qDebug() << "record" << res;
     return res;
+}
 
-    /*
-    this->setQuery(query);
+QString ListModel::viewmemos(const int fileid, const int memotyp)
+{
+    QSqlQuery query;
 
-    for (int i = 0; i < this->rowCount(); ++i) {
-        int id = this->record(i).value("id").toInt();
-        QString name = this->record(i).value("file").toString();
-        qDebug() << id << name;
-    }
+    // memotyp == 1
+    query.prepare("SELECT id, memo FROM source WHERE id = :fileid");
 
-    qDebug() << fileid;
-    while(this->canFetchMore()) this->fetchMore();
+    if (memotyp == 2)
+        query.prepare("SELECT id, memo FROM cases WHERE id = :fileid");
 
-    qDebug() << "record->value" << this->record(0);
-    qDebug() << "record->value" << this->record(0).value(0).toInt();
-    qDebug() << "record->value" << this->record(1).value(1).toString();
-    qDebug() << "record->value" << this->rowCount();
+    if (memotyp == 3)
+        query.prepare("SELECT catid as id, memo FROM codecat WHERE catid = :fileid");
 
-    for (int i = 0; i < this->rowCount(); ++i) {
-        int id = this->record(i).value("id").toInt();
-        QString name = this->record(i).value("file").toString();
-        qDebug() << id << name;
-    }
+    if (memotyp == 4)
+        query.prepare("SELECT catid as id, memo FROM filecat WHERE catid = :fileid");
 
-        return this->record(0).value("file").toString();
-    */
+    // attributes provides no id variable, so we do a little sql limbo to be able to select an id variable
+    if (memotyp == 5)
+        query.prepare("select a.id, a.memo \
+                       from (select ROW_NUMBER() OVER(ORDER BY lower(name)) AS id, \
+                                    memo, name \
+                                    from attributes \
+                                    where status=1 \
+                                    order by lower(name)) a \
+                       where id = :fileid");
+
+    if (memotyp == 6)
+        query.prepare("SELECT id, memo FROM freecode WHERE id = :fileid");
+
+    query.bindValue(":fileid", fileid);
+    query.exec();
+    qDebug() << "next" << query.record();
+    query.next();
+
+    return query.record().value("memo").toString();
+}
+
+QString ListModel::viewjournals(const int fileid)
+{
+    QSqlQuery query;
+    query.prepare("SELECT a.id, a.journal \
+                   FROM (SELECT ROW_NUMBER() OVER(ORDER BY date) AS id, \
+                                date, \
+                                journal  \
+                         FROM journal  WHERE status=1 ORDER BY date) a\
+                   WHERE id = :fileid");
+    query.bindValue(":fileid", fileid);
+    query.exec();
+    qDebug() << "next" << query.record();
+    query.next();
+
+    return query.record().value("journal").toString();
 }
 

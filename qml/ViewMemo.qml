@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.15
 
 Window {
     id: frame
-    title: qsTr(filename)
+    title: qsTr("Memo")
     visible: true
     width: 640
     height: 480
@@ -64,9 +64,8 @@ Window {
 
             id: contentarea
             width: flick.width
-            text: viewfile.viewfiles(fileid)
+            text: viewmemo.viewmemos(memoid, memotyp)
             textFormat: TextEdit.RichText
-            readOnly: true
             selectByMouse: true
             focus: true
             wrapMode: TextEdit.Wrap

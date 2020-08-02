@@ -23,6 +23,10 @@ Page {
                     }
                     Button {
                         text: "Memo"
+                        onClicked: {
+                            memotyp = 3;
+                            stackView.push("ViewMemo.qml")
+                        }
                     }
                 }
                 Row {
@@ -55,9 +59,12 @@ Page {
                         width: codecats_page.width
                         text: model.name
                         highlighted: ListView.isCurrentItem
-                        onClicked: listView_codecats.currentIndex = index
-                        onDoubleClicked: {
+                        onClicked: {
+                            listView_codecats.currentIndex = index
                             codecatsid = model.catid;
+                            memoid = model.catid;
+                        }
+                        onDoubleClicked: {
                             console.log("double row is ", codecatsid);
                             codecatsID.codecatsID(codecatsid)
                         }

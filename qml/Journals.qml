@@ -17,6 +17,9 @@ Page {
             }
             Button {
                 text: "Open"
+                onClicked: {
+                    stackView.push("ViewJournal.qml");
+                }
             }
             Button {
                 text: "Rename"
@@ -35,7 +38,13 @@ Page {
                         width: jour_page.width
                         text: model.name
                         highlighted: ListView.isCurrentItem
-                        onClicked: listView.currentIndex = index
+                        onClicked: {
+                            listView.currentIndex = index
+                            journalid = model.id
+                        }
+                        onDoubleClicked: {
+                            stackView.push("ViewJournal.qml");
+                        }
                     }
                 }
             }

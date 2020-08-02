@@ -7,6 +7,7 @@ Page {
     id: codes_page
     title: qsTr("Codes")
 
+
     ColumnLayout{
 
         Row {
@@ -23,6 +24,10 @@ Page {
             }
             Button {
                 text: "Memo"
+                onClicked: {
+                    memotyp = 6;
+                    stackView.push("ViewMemo.qml")
+                }
             }
             }
             Row {
@@ -55,7 +60,15 @@ Page {
                         width: codes_page.width
                         text: model.name
                         highlighted: ListView.isCurrentItem
-                        onClicked: listView.currentIndex = index
+                        onClicked: {
+                            listView.currentIndex = index
+                            // gibt den richtigen Index zurück
+                            console.log("double row is ", index);
+                            filename =  model.name;
+                            fileid = model.id;
+                            memoid = model.id;
+                            // stackView.push("ViewFile.qml")
+                        }
                         onDoubleClicked: {
                             // gibt den richtigen Index zurück
                             console.log("double row is ", index);
