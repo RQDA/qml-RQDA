@@ -13,4 +13,4 @@ A word of warning: to me this is a hobby project learning about Qt and QML and I
 ## Screenshot
 ![development screenshot][screenshot]
 
-[screenshot]: doc/pic/Screenshot-dev2.png "development screenshot"
+[screenshot]: doc/pic/Screenshot-dev2.PNG "development screenshot"
