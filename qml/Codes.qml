@@ -15,6 +15,10 @@ Page {
             Row{
             Button {
                 text: "Add"
+                onClicked: {
+                    console.log(flick.contentarea.selectionStart())
+                    console.log(flick.contentarea.selectionEnd())
+                }
             }
             Button {
                 text: "Delete"

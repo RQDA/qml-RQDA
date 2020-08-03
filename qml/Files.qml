@@ -57,6 +57,7 @@ Page {
                             // viewfile.viewfiles(fileid)
                         }
                         onDoubleClicked: {
+                            filetxt = viewfile.viewfiles(fileid)
                             stackView.push("ViewFile.qml")
                         }
                     }
