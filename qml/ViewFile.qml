@@ -32,8 +32,8 @@ ApplicationWindow {
                 text: qsTr("Position")
 
                 onClicked: {
-                    console.log(flick.contentarea.selectionStart())
-                    console.log(flick.contentarea.selectionEnd())
+                    console.log("sel beg: " + flick.contentarea.selectionStart())
+                    console.log("sel end: " +flick.contentarea.selectionEnd())
                 }
             }
         }
@@ -208,8 +208,19 @@ ApplicationWindow {
           return ranges;
         }
 
+
         function createHighlightedString(ranges, text) {
-            console.log(ranges)
+
+
+            var colors = [];
+            for(var k = 0; k < 99; ++k)
+            {
+                // https://stackoverflow.com/a/55346027/12340029
+                let c= "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
+                colors.push(c);
+            }
+
+            // console.log("ranges: " + ranges)
           var flatRanges = flattenRanges(ranges);
           var inflatedRanges = inflateRanges(flatRanges, text.length);
           var filledRanges = fillRanges(inflatedRanges, text);
@@ -220,15 +231,20 @@ ApplicationWindow {
             var begin = range.begin, end = range.end;
             if (range.count > 0) {
               if (range.tooltip) {
-                str += "<span class='highlight-" + range.count + " tooltip'>" + range.text + "<span class='tooltiptext tooltip-bottom'>" + range.tooltip.join('<br/>') + "</span></span>";
+                str += "<span style='background:" + colors[range.id] + "'>" + range.text + "<span class='tooltiptext tooltip-bottom'>" + range.tooltip.join('<br/>') + "</span></span>";
               } else {
-                str += "<span class='highlight-" + range.count + "'>" + range.text + "</span>";
+                str += "<span style='background:" + colors[range.id] + "'>" + range.text + "</span>";
               }
             } else {
               str += range.text;
             }
           }
           return str;
+        }
+
+        // https://www.codegrepper.com/code-examples/javascript/javascript+replace+line+breaks+with+br
+        function nl2br(str){
+         return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
         }
 
 
@@ -239,19 +255,6 @@ ApplicationWindow {
             text:  '
                 <html>
                     <head><style>
-                        .highlight-1{
-                          background:#ffc;
-                        }
-                        .highlight-2{
-                          background:#ffa;
-                        }
-                        .highlight-3{
-                          background:#ff7;
-                        }
-                        .highlight-4{
-                          background:#ff5;
-                        }
-
                         .tooltip {
                             position: relative;
                             display: inline-block;
@@ -295,7 +298,7 @@ ApplicationWindow {
                         }
                     </style></head>
                     <body><div id="text">' +
-                    flick.createHighlightedString(ranges, filetxt) +
+                    flick.nl2br(flick.createHighlightedString(ranges, filetxt)) +
                     '</div></body>
                 </html>
             '

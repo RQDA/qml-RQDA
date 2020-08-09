@@ -55,6 +55,7 @@ public slots:
     QString viewfiles(const int fileid);
     QString viewmemos(const int fileid, const int memotyp);
     QString viewjournals(const int fileid);
+    QVariantList  range(const int fileid);
 };
 
 #endif // LISTMODEL_H

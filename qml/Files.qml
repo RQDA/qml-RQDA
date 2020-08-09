@@ -48,16 +48,17 @@ Page {
                         highlighted: ListView.isCurrentItem
                         onClicked: {
                             listView.currentIndex = index
-                            // gibt den richtigen Index zurück
-                            console.log(filename);
                             filename =  model.name;
                             fileid = model.id;
                             memoid = model.id;
                             console.log("filename is ", filename);
-                            // viewfile.viewfiles(fileid)
+                            console.log("fileid is ", fileid);
                         }
                         onDoubleClicked: {
+                            console.log(fileid);
                             filetxt = viewfile.viewfiles(fileid)
+                            console.log(filetxt);
+                            ranges = range.range(fileid)
                             stackView.push("ViewFile.qml")
                         }
                     }

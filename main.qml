@@ -26,17 +26,9 @@ ApplicationWindow {
     property int journalid: 0;
 
     property var ranges : [{
-       "begin": 437,
-       "end": 444,
-       "tooltip": "section 1"
-     }, {
        "begin": 0,
-       "end": 5,
-       "tooltip": "section 2"
-     }, {
-       "begin": 6,
-       "end": 11,
-       "tooltip": "section 3"
+       "end": 0,
+       "cid": 0
      }];
 
 

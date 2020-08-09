@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     ListModel *viewfile = new ListModel();
     ListModel *viewmemo = new ListModel();
     ListModel *viewjournal = new ListModel();
+    ListModel *range = new ListModel();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("viewfile", viewfile);
     engine.rootContext()->setContextProperty("viewmemo", viewmemo);
     engine.rootContext()->setContextProperty("viewjournal", viewjournal);
+    engine.rootContext()->setContextProperty("range", range);
     // engine.rootContext()->setContextProperty("database", &database);
 
     return app.exec();

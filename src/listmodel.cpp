@@ -118,18 +118,57 @@ void ListModel::viewfilesCodes()
 QString ListModel::viewfiles(const int fileid)
 {
     QSqlQuery query;
-    query.prepare("SELECT id, file FROM source WHERE id = :fileid");
+    query.prepare("SELECT file FROM source WHERE status == 1 and id == :fileid");
+    query.bindValue(":fileid", fileid);
+
+    if(!query.exec())
+        qDebug() << "SQL Error:" << query.lastError().text();
+
+    QVector<QString> res;
+    while(query.next()) {
+            QString tmp = query.value(0).toString().toHtmlEscaped();
+            // qDebug() << res;    }
+            res.append(tmp);
+    }
+    query.finish();
+
+    return res[0];
+}
+
+QVariantList ListModel::range(const int fileid)
+{
+    QSqlQuery query;
+    query.prepare("select selfirst, selend, freecode.id from coding, freecode where fid= :fileid and coding.status=1 and freecode.id=cid and freecode.status=1 order by selfirst");
     query.bindValue(":fileid", fileid);
     query.exec();
-    qDebug() << "next" << query.record();
+    // qDebug() << "range" << query.record();
 
-    QString res = "";
+    /*
+    std::list<std::vector<int>> res;
     while(query.next()) {
-        res = query.record().value("file").toString();
+        std::vector<int> tmp = {0, 0};
+        tmp[0] = query.value(0).toInt();
+        tmp[1] = query.value(1).toInt();
+
+        res.push_back(tmp);
+    }
+    */
+
+    QVariantList res;
+    while(query.next()) {
+        if(query.isValid())
+        {
+            QVariantMap map;
+            map.insert("begin", query.value(0).toInt());
+            map.insert("end",   query.value(1).toInt());
+            map.insert("id",   query.value(2).toInt());
+            res.push_back(map);
+        }
     }
 
     return res;
 }
+
 
 QString ListModel::viewmemos(const int fileid, const int memotyp)
 {
