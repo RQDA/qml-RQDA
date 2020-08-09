@@ -122,10 +122,12 @@ QString ListModel::viewfiles(const int fileid)
     query.bindValue(":fileid", fileid);
     query.exec();
     qDebug() << "next" << query.record();
-    query.next();
-    // qDebug() << "next" << query.record();
-    QString res = query.record().value("file").toString();
-    // qDebug() << "record" << res;
+
+    QString res = "";
+    while(query.next()) {
+        res = query.record().value("file").toString();
+    }
+
     return res;
 }
 
